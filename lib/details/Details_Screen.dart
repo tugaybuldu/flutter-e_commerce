@@ -18,6 +18,9 @@ class DetailsScreen extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
       ),
+      body: Body(
+        product: product,
+      ),
     );
   }
 }

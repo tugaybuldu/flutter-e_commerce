@@ -4,6 +4,7 @@ import 'package:e_commerce/ProfilePage.dart';
 import 'package:e_commerce/ShopPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:e_commerce/BagPage.dart';
 
 void main() {
   runApp(
@@ -25,7 +26,7 @@ class _MainAppState extends State<MainApp> {
   List<Widget> _children = <Widget>[
     HomePage(),
     ShopPage(),
-    CartPage(),
+    BagPage(),
     ProfilePage()
   ];
   void onTappedbar(int index) {

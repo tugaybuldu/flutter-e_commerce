@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Product {
-  final String image, title, description;
+  // category Id kategori bazlı seçim için konulacak
+
+  final String image, title, description, categoryName;
   final int price, size, id;
+  final bool isCart;
   final Color color;
   Product({
+    this.isCart = false,
+    this.categoryName,
     this.id,
     this.image,
     this.title,
@@ -18,15 +23,16 @@ class Product {
 List<Product> products = [
   Product(
     id: 1,
-    title: "Office Code",
+    title: "Tişört",
     price: 234,
     size: 12,
+    categoryName: "Dresses",
     description: dummyText,
     image: "assets/e1.jpg",
   ),
   Product(
     id: 2,
-    title: "Office Code",
+    title: "Pantolon",
     price: 234,
     size: 12,
     description: dummyText,

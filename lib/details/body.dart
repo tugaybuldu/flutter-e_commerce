@@ -1,3 +1,6 @@
+import 'package:e_commerce/BagPage.dart';
+import 'package:e_commerce/category/DressesItemCard.dart';
+import 'package:e_commerce/details/Details_Screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce/Product.dart';
@@ -22,7 +25,7 @@ class Body extends StatelessWidget {
                       top: size.height * 0.3, left: 20, right: 20),
                   //height: 500,
                   decoration: BoxDecoration(
-                    color: Colors.black12,
+                    color: Colors.white10,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(24),
                       topRight: Radius.circular(24),
@@ -56,6 +59,37 @@ class Body extends StatelessWidget {
                         product.description,
                         style: TextStyle(height: 2),
                       ),
+                      Row(
+                        children: [
+                          RaisedButton(
+                            color: Colors.white,
+                            child: Text("Sepete Ekle"),
+                            onPressed: () {
+                              GridView.builder(
+                                itemCount: products.length,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 20,
+                                  crossAxisSpacing: 20,
+                                  childAspectRatio: 0.75,
+                                ),
+                                itemBuilder: (context, index) =>
+                                    DressesItemCard(
+                                  product: products[index],
+                                  press: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => DetailsScreen(
+                                          product: products[index],
+                                        ),
+                                      )),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ),
@@ -144,9 +178,13 @@ class ProductTitleAndImage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: 20,
+                width: 10,
               ),
-              Expanded(child: Image.asset(product.image, fit: BoxFit.fill)),
+              Expanded(
+                  child: Image.asset(
+                product.image,
+                fit: BoxFit.fill,
+              )),
             ],
           )
         ],

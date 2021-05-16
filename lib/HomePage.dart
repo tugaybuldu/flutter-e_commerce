@@ -3,6 +3,8 @@ import 'package:e_commerce/Product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'details/Details_Screen.dart';
+
 const kDefaultPaddin = 20.0;
 
 class HomePage extends StatefulWidget {
@@ -84,8 +86,8 @@ class _HomePageState extends State<HomePage> {
                           press: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    //  builder: (context) => DetailsScreen(
-                                    //  product: products[index],
+                                    // builder: (context) => DetailsScreen(
+                                    //product: products[index],
                                     ),
                               )),
                     )),

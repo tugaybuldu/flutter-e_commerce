@@ -8,12 +8,21 @@ class DressesScreen extends StatefulWidget {
   _DressesScreenState createState() => _DressesScreenState();
 }
 
+// Product Screen olacak ismi
+
 class _DressesScreenState extends State<DressesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Dresses'),
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
+          title: Text(
+            'Dresses',
+            style: TextStyle(color: Colors.black),
+          ),
         ),
         body: SafeArea(
           child: Padding(

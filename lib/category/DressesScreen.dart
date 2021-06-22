@@ -1,3 +1,8 @@
+import 'dart:convert';
+import 'dart:typed_data';
+import 'dart:io' as Io;
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/details/Details_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce/category/DressesItemCard.dart';
@@ -12,6 +17,71 @@ class DressesScreen extends StatefulWidget {
 
 class _DressesScreenState extends State<DressesScreen> {
   @override
+  final _firestore = FirebaseFirestore.instance;
+
+  Widget _buildBody(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: _firestore.collection('Product').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearProgressIndicator();
+
+        List<DocumentSnapshot> listOfDocumentSnap = snapshot.data.docs;
+
+        return GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 20,
+            crossAxisSpacing: 20,
+            childAspectRatio: 0.75,
+          ),
+          itemCount: listOfDocumentSnap.length,
+          itemBuilder: (context, index) {
+            print(listOfDocumentSnap[index].data()['UrunResim']);
+
+            var thumbImage = Image.asset('assets/b1.jpg');
+
+            if (listOfDocumentSnap[index].data()['UrunResim'] != '') {
+              thumbImage = Image.memory(
+                  base64Decode(listOfDocumentSnap[index].data()['UrunResim']));
+            }
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                      padding: EdgeInsets.all(20.0),
+                      // For  demo we use fixed height  and width
+                      // Now we dont need them
+                      // height: 180,
+                      // width: 160,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Hero(
+                        tag: "${listOfDocumentSnap[index]}",
+                        child: thumbImage,
+                      )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20.0 / 4),
+                  child: Text(
+                    // products is out demo list
+                    listOfDocumentSnap[index].data()['UrunAd'],
+                  ),
+                ),
+                Text(
+                  "\$${listOfDocumentSnap[index].data()['UrunFiyat']}",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -27,24 +97,7 @@ class _DressesScreenState extends State<DressesScreen> {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: GridView.builder(
-                itemCount: products.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 20,
-                  crossAxisSpacing: 20,
-                  childAspectRatio: 0.75,
-                ),
-                itemBuilder: (context, index) => DressesItemCard(
-                      product: products[index],
-                      press: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DetailsScreen(
-                              product: products[index],
-                            ),
-                          )),
-                    )),
+            child: _buildBody(context),
           ),
         ));
   }

@@ -1,5 +1,6 @@
 import 'package:e_commerce/ItemCard.dart';
 import 'package:e_commerce/Product.dart';
+import 'package:e_commerce/login/LoginPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -26,12 +27,28 @@ class _HomePageState extends State<HomePage> {
 
               Padding(
                 padding: const EdgeInsets.only(top: 24.0),
-                child: Text(
-                  "Home",
-                  style: TextStyle(
-                      fontSize: 32,
-                      color: Color(0xFF0A1034),
-                      fontWeight: FontWeight.bold),
+                child: Row(
+                  children: [
+                    Text(
+                      "Home",
+                      style: TextStyle(
+                          fontSize: 32,
+                          color: Color(0xFF0A1034),
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 180.0),
+                      child: FlatButton(
+                          child: Text("Login"),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginPage()),
+                            );
+                          }),
+                    )
+                  ],
                 ),
               ),
 

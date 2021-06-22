@@ -2,11 +2,14 @@ import 'package:e_commerce/CartPage.dart';
 import 'package:e_commerce/HomePage.dart';
 import 'package:e_commerce/ProfilePage.dart';
 import 'package:e_commerce/ShopPage.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:e_commerce/BagPage.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     MaterialApp(
       home: MainApp(),
